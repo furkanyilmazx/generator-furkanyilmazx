@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "@<%= appNameUpperCamelCase %>/*": ["./src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
