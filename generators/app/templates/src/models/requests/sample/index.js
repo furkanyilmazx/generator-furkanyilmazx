@@ -1,1 +1,1 @@
-export { default } from './SampleRequest';
+export { default as SampleRequest } from './SampleRequest';

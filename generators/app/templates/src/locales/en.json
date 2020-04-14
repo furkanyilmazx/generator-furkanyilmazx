@@ -1,0 +1,7 @@
+{
+  "hello": "hi!",
+  "errors": {
+    "general": "100000;;An Error Occured!",
+    "generalWithCause": "100000;;An Error Occured! Cause by: %s"
+  }
+}

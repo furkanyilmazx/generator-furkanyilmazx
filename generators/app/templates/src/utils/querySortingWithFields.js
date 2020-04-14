@@ -7,7 +7,7 @@ export function parseQuerySortFields(query, fields) {
   let sortAbleFileds = sort.split(',');
 
   if (sortAbleFileds.length <= 1)
-    throw new ValidationError(1007, 'Provide expecting sorting values');
+    throw new ValidationError('errors.general');
 
   sortAbleFileds = sortAbleFileds
     .map(sortAbleFiled => {

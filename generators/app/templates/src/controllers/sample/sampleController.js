@@ -13,7 +13,7 @@ export async function sampleController(req, res, next) {
   try {
     const sampleRequest = SampleRequest(req);
     
-    sampleRequestValidator(req);
+    await sampleRequestValidator(sampleRequest);
     
     const sampleDTO = await sampleService(sampleRequest);
     const sampleResponse = SampleResponse(sampleDTO);

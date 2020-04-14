@@ -1,0 +1,7 @@
+{
+  "hello": "merhaba!",
+  "errors": {
+    "general": "100000;;Bir Hata Olustu!",
+    "generalWithCause": "100000;;Bir Hata Olustu! Sebebi: %s"
+  }
+}

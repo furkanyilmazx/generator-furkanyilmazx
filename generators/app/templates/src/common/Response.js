@@ -23,7 +23,7 @@ export default class Response {
     this.page = pagination && pagination.page;
     this.pageSize = pagination && pagination.pageSize;
     this.count = pagination && pagination.count;
-    this.data = props.result;
+    this.result = props.result;
 
     Object.defineProperty(this, 'res', {
       configurable: false,

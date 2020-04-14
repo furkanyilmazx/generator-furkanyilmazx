@@ -4,6 +4,6 @@ import { sampleController } from "@<%= appNameUpperCamelCase %>/controllers/samp
 
 const loginRouter = express.Router();
 
-loginRouter.post("/login", sampleController);
+loginRouter.get("/", sampleController);
 
 export default loginRouter;

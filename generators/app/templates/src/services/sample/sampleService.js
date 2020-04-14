@@ -17,8 +17,8 @@ export async function sampleService(sampleRequest) {
   } catch (err) {
     logger.error(err);
     if (err instanceof BaseError) {
-      throw new AuthError(1005, 'Login failed');
+      throw new AuthError('errors.general');
     }
-    throw new BaseError(1004, 'An error occured');
+    throw new BaseError('errors.general');
   }
 }

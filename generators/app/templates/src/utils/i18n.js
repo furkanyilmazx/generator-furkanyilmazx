@@ -5,6 +5,7 @@ i18n.configure({
   defaultLocale: 'tr',
   queryParameter: 'locale',
   updateFiles: false,
+  objectNotation: true,
   api: {
     __: 't',
     __n: 'tn',

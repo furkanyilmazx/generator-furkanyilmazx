@@ -7,7 +7,11 @@ import apiV1Routes from '@<%= appNameUpperCamelCase %>/routers/apiV1Routes';
 import healthRouter from '@<%= appNameUpperCamelCase %>/routers/healthRouter';
 import errorMiddleware from '@<%= appNameUpperCamelCase %>/middlewares/errorMiddleware';
 import localeMiddleware from '@<%= appNameUpperCamelCase %>/middlewares/localeMiddleware';
-import Logger, { loggerMiddleware } from '@<%= appNameUpperCamelCase %>/utils/logger';
+import Logger, {
+  loggerMiddleware,
+} from '@<%= appNameUpperCamelCase %>/utils/logger';
+
+import getApplicationServer from '@<%= appNameUpperCamelCase %>/utils/getApplicationServer';
 
 import config from '@<%= appNameUpperCamelCase %>/configs/config';
 
@@ -29,7 +33,9 @@ apiV1Routes(app);
 
 app.use(errorMiddleware);
 
-app.listen(appPort, () => {
+const applicationServer = getApplicationServer(app);
+
+applicationServer.listen(appPort, () => {
   logger.info(`${apiName} started`);
   logger.info(`Server listening to ${appPort}....`);
   logger.info('Press Ctrl+C to quit.');

@@ -18,7 +18,7 @@ function checkPageParameter(page) {
   } else {
     let tempPage = parseInt(page);
     if (tempPage != NaN) return tempPage;
-    else new ValidationError(1005, 'Page must be integer');
+    else new ValidationError('errors.general');
   }
   return page;
 }
@@ -32,7 +32,7 @@ function checkPageSizeParameter(pageSize) {
       return tempPageSize > 0 && tempPageSize <= MAX_PAGE_SIZE
         ? tempPageSize
         : DEFAULT_PAGE_SIZE;
-    } else new ValidationError(1005, 'pageSize must be integer');
+    } else new ValidationError('errors.general');
   }
   return pageSize;
 }

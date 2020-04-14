@@ -55,7 +55,7 @@ module.exports = (env, { debugMode }) => ({
     }),
     new FileManagerPlugin({
       onEnd: {
-        copy: [{ source: './resources/locales', destination: './dist/locales' }],
+        copy: [{ source: './src/locales', destination: './dist/locales' }],
       },
     }),
   ],

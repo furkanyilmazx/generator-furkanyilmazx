@@ -1,6 +1,6 @@
 function SampleRequest(req) {
   return {
-    sampleId: req.params.sampleId,
+    sampleId: req.query.sampleId,
   };
 }
 

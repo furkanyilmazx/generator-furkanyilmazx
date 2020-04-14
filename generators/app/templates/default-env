@@ -1,0 +1,42 @@
+API_ENV="local"
+
+SERVICE_NAME="<%= appNameUpperCamelCase %>"
+PORT="<%= appDefaultPort %>"
+
+<%if (isDatabaseActive) { %>
+DB_ENABLED=true
+DB_NAME=oauth2
+DB_USER=furkan
+DB_PASSWD=153415
+DB_URL=localhost
+<% } else { %>
+DB_ENABLED=false
+<% } %>
+
+<%if (isJwtActive && jwtType === "rsa256") { %>
+JWT_ENABLED=true
+JWT_ALGORITHM=RSA256
+JWT_PRIVATE_KEY_FILE_NAME=jwt_private.pem
+JWT_PUBLIC_KEY_FILE_NAME=jwt_public.pem
+<% } else if (isJwtActive && jwtType === "sha256") { %>
+JWT_ENABLED=true
+JWT_ALGORITHM=SHA256
+JWT_SECRET=6sgLpk2PyFDgZYXSKbRmmB1b058VG03QP+Lhe3XfTZA=
+<% } else { %>
+JWT_ENABLED=false
+<% } %>
+JWT_ISSUER='https://www.<%= appName %>.com'
+JWT_ACCESS_TOKEN_EXPIRE_IN='30m'
+JWT_REFRESH_TOKEN_EXPIRE_IN='30m'
+
+<%if (isSslActive) { %>
+SSL_ENABLED=true
+SSL_CERT_FILE="./certs/server_cert.pem"
+SSL_KEY_FILE="./certs/server_key.pem"
+SSL_PASSPHARASE=changeme
+<% } else { %>
+SSL_ENABLED=false
+<% } %>
+
+LOG_LEVEL=debug
+LOG_PATH="./logs/"

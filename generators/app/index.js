@@ -8,7 +8,11 @@ module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
     this.log(
-      yosay(`Welcome to the classy ${chalk.red("generator-furkanyilmazx")} generator!`)
+      yosay(
+        `Welcome to the classy ${chalk.red(
+          "generator-furkanyilmazx"
+        )} generator!`
+      )
     );
 
     // networkName, appName, appNameForTokenHeader, appAuthor, appDescription, appNameUpperCamelCase
@@ -64,19 +68,43 @@ module.exports = class extends Generator {
         type: "input",
         name: "appDefaultPort",
         message: "Api default port is: ",
-        default: 8080
+        default: 8080,
       },
       {
         type: "confirm",
         name: "isDatabaseActive",
         message: "Do you want use database?",
-        default: false
+        default: false,
       },
       {
         type: "confirm",
         name: "isSslActive",
         message: "Do you want use secure connection (SSL)?",
-        default: false
+        default: false,
+      },
+      {
+        type: "confirm",
+        name: "isJwtActive",
+        message: "Do you want use jwt (JWT)?",
+        default: false,
+      },
+      {
+        type: "expand",
+        name: "jwtType",
+        message: "Do you want use jwt (JWT)?",
+        when: ({ isJwtActive }) => !!isJwtActive,
+        choices: [
+          {
+            key: "s",
+            name: "SHA256",
+            value: "sha256",
+          },
+          {
+            key: "r",
+            name: "RSA256",
+            value: "rsa256",
+          },
+        ],
       },
     ];
 
@@ -104,10 +132,14 @@ module.exports = class extends Generator {
   }
 
   install() {
-    //this.yarnInstall();
+    this.yarnInstall();
   }
 
   end() {
-    this.log(yosay("FURKANYILMAZX " + this.description));
+    this.log("Creating git repository");
+    this.spawnCommandSync('git', ['init']);
+    this.spawnCommandSync('git', ['add', '--all']);
+    this.spawnCommandSync('git', ['commit', '-m', '"initial commit from generator"']);
+    this.log(yosay("Don't remember to set .env file (e.g. `mv default-env .env`)"));
   }
 };

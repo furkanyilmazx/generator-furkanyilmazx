@@ -14,7 +14,6 @@ function errorMiddleware(err, req, res, next) {
     baseErrorResponse.send(res);
   } else {
     logger.error('Unexpected Eror: ' + err.toString());
-    console.error(err);
     res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

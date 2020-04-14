@@ -1,1 +1,1 @@
-export { default } from './SampleResponse';
+export { default as SampleResponse } from './SampleResponse';
