@@ -7,7 +7,6 @@ const CONFIG = {
   env: process.env.API_ENV,
   debugMode: process.env.DEBUG_MODE,
 <%if (isDatabaseActive) { %>
-
   database: {
     name: process.env.DB_NAME,
     username: process.env.DB_USER,

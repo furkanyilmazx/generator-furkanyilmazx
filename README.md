@@ -1,8 +1,14 @@
 # generator-furkanyilmazx
 
-> furkanyilmazx generator
+Generate Rest API template or React component(Functional|Class) with this generator.
+
+## Rest API Template Generate Preview
 
 ![](generate-furkanyilmazx.gif)
+
+## React Functional And Class Based Component Template Generate Preview
+
+![](generate-react.gif)
 
 ## Installation
 
@@ -17,10 +23,16 @@ cd ./generator-furkanyilmazx
 npm link
 ```
 
-Then generate your new project:
+Generate your new **Rest API** template:
 
 ```bash
 yo furkanyilmazx
+```
+
+Generate your new **React Component(Functional|Class)** template:
+
+```bash
+yo furkanyilmazx:react
 ```
 
 ## License
