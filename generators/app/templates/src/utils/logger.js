@@ -1,5 +1,6 @@
 import morgan from 'morgan';
 import { createLogger, format, transports } from 'winston';
+import { v4 as uuidv4 } from 'uuid';
 import 'winston-daily-rotate-file';
 
 import config from '@<%= appNameUpperCamelCase %>/configs/config';
@@ -16,14 +17,13 @@ const logFormatPrintf = printf(
     moduleDefault,
     correlationId,
   }) =>
-    `${timestamp} [ ${serviceName}, ${correlationId ||
-      '-'} ] [${moduleName || moduleDefault}] [${level}] : ${message}`
+    `${timestamp} ${level} [${serviceName},${correlationId ||
+      ''}] [${moduleName || moduleDefault}]: ${message}`
 );
 
 const dailyRoateTransformer = new transports.DailyRotateFile({
-  filename: `${config.apiName}_%DATE%`,
+  filename: `${config.apiName}.log_%DATE%`,
   zippedArchive: true,
-  extension: '.log',
   dirname: config.log.filePath,
   createSymlink: true,
   symlinkName: `${config.apiName}.log`,
@@ -31,7 +31,7 @@ const dailyRoateTransformer = new transports.DailyRotateFile({
 
 const winstonLogger = createLogger({
   level: config.env == 'local' ? 'debug' : 'info',
-  format: combine(timestamp(), logFormatPrintf),
+  format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss.ms' }), logFormatPrintf),
   defaultMeta: {
     serviceName: config.apiName,
     moduleDefault: '',
@@ -47,6 +47,9 @@ if (config.env == 'local') {
   );
 }
 
+function skipOptionsAndHealthcheckRequests(req, res) {
+  return req.method === 'OPTIONS' || req.url === '/healthcheck';
+}
 winstonLogger.morganStream = {
   write: function(message) {
     winstonLogger.info(message, { module: 'logger.js' });
@@ -57,7 +60,21 @@ winstonLogger.debug = function(message, meta) {
   this.log({ level: 'debug', message: message, ...meta });
 };
 
-const middleware = morgan('combined', { stream: winstonLogger.morganStream });
+const correlationIdMidlleware = (req, res, next) => {
+  req.correlationId = uuidv4();
+  next();
+};
+
+morgan.token('correlationId', (req) => req.correlationId);
+const morganLogFormat =
+  ':correlationId :req[x-forwarded-for] ":method :url" :status ":referrer" ":user-agent"  :total-time ms';
+
+
+const morganMiddleware = morgan(morganLogFormat, {
+  stream: winstonLogger.morganStream,
+  skip: skipOptionsAndHealthcheckRequests,
+});
+const loggerMiddleware = [correlationIdMidlleware, morganMiddleware];
 
 export default winstonLogger;
-export { middleware as loggerMiddleware };
+export { loggerMiddleware };

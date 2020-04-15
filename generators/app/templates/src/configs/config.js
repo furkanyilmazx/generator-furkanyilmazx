@@ -72,6 +72,9 @@ const CONFIG = {
     enabled: process.env.SSL_ENABLED === 'true',
     ...getSSLProperties(),
   },
+  eureka: {
+    url: "EUREKA_URL",
+  },
 };
 
 export default CONFIG;
