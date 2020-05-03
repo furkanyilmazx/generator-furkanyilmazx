@@ -50,9 +50,10 @@ if (config.env == 'local') {
 function skipOptionsAndHealthcheckRequests(req, res) {
   return req.method === 'OPTIONS' || req.url === '/healthcheck';
 }
+
 winstonLogger.morganStream = {
   write: function(message) {
-    winstonLogger.info(message, { module: 'logger.js' });
+    winstonLogger.info(message.substring(0,message.lastIndexOf('\n'), { module: 'logger.js' });
   },
 };
 
